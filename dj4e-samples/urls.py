@@ -53,6 +53,7 @@ urlpatterns = [
     path('chat/', include('chat.urls')),
     path('util/', include('util.urls')),
     path('well/', include('well.urls')),
+    path('wellcopy/', include('wellcopy.urls')),
     path('tagme/', include('tagme.urls')),
 ]
 

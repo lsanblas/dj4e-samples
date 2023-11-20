@@ -68,6 +68,7 @@ INSTALLED_APPS = [
     'chat.apps.ChatConfig',
     'util.apps.UtilConfig',
     'well.apps.WellConfig',
+    'wellcopy.apps.WellcopyConfig',
     'tagme.apps.TagmeConfig',
 ]
 
