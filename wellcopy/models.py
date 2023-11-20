@@ -89,7 +89,7 @@ class Comment(models.Model) :
     content = models.TextField()
 
     owner = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE,
-            related_name='review_owner')
+            related_name='comment_owner')
     review = models.ForeignKey('Review', on_delete=models.CASCADE, null=False)
 
     created_at = models.DateTimeField(auto_now_add=True)
