@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from well.models import Post
+from wellcopy.models import Post
 from django.views import View
 from django.contrib.humanize.templatetags.humanize import naturaltime
 
