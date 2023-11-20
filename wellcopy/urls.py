@@ -9,14 +9,14 @@ urlpatterns = [
 
     path('post/<int:pk>', 
         OwnerDetailView.as_view(
-            model = models.Post,
+            model = models.Postcopy,
             template_name = app_name+"/detail.html"), 
         name='post_detail'),
 
     path('post/create', 
         OwnerCreateView.as_view(
             success_url=reverse_lazy(app_name+':all'),
-            model = models.Post,
+            model = models.Postcopy,
             template_name = app_name+"/form.html",
             fields = ['title', 'text']
          ), name='post_create'),
@@ -24,7 +24,7 @@ urlpatterns = [
     path('post/<int:pk>/update', 
         OwnerUpdateView.as_view(
             success_url=reverse_lazy(app_name+':all'),
-            model = models.Post,
+            model = models.Postcopy,
             fields = ['title', 'text'],
             template_name = app_name+"/form.html"
         ), name='post_update'),
@@ -32,7 +32,7 @@ urlpatterns = [
     path('post/<int:pk>/delete', 
         OwnerDeleteView.as_view(
             success_url=reverse_lazy(app_name+':all'),
-            model = models.Post,
+            model = models.Postcopy,
             template_name = app_name+"/delete.html"
         ), name='post_delete'),
 
