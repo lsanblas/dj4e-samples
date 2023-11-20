@@ -4,8 +4,8 @@
 <span style="float: right;">
 ({{ post.updated_at|naturaltime }})
 {% if post.owner == user %}
-<a href="{% url 'well:post_update' post.id %}"><i class="fa fa-pencil"></i></a>
-<a href="{% url 'well:post_delete' post.id %}"><i class="fa fa-trash"></i></a>
+<a href="{% url 'wellcopy:post_update' post.id %}"><i class="fa fa-pencil"></i></a>
+<a href="{% url 'wellcopy:post_delete' post.id %}"><i class="fa fa-trash"></i></a>
 {% endif %}
 </span>
 <h1>{{ post.title }}</h1>
@@ -15,6 +15,6 @@
 <p>
 </p>
 <p>
-<a href="{% url 'well:all' %}">All posts</a>
+<a href="{% url 'wellcopy:all' %}">All posts</a>
 </p>
 {% endblock %}
