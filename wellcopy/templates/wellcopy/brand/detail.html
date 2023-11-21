@@ -2,6 +2,13 @@
 {% load humanize %} <!-- https://docs.djangoproject.com/en/4.2/ref/contrib/humanize -->
 <!-- navbar -->
 {% load app_tags %} <!-- see home/templatetags/app_tags.py and dj4e-samples/settings.py -->
+{% block head %}
+<style>
+body{
+  background-color: #ccc
+}
+</style>
+{% endblock %}
 {% block navbar %}
 <!-- https://www.w3schools.com/bootstrap/bootstrap_navbar.asp -->
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="border-radius:10px !important">

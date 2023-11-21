@@ -1,10 +1,13 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from wellcopy.models import Postcopy, Brand, Guitar, Review, Comment
 from django.views import View
 from django.contrib.humanize.templatetags.humanize import naturaltime
 from django.http import HttpResponse
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.urls import reverse_lazy
 
 from django.db.models import Q
+from wellcopy.forms import CreateBrandForm, CreateGuitarForm
 
 class PostListView(View):
     template_name = "wellcopy/list.html"
@@ -49,6 +52,51 @@ class BrandListView(View):
         ctx = {'brand_list' : brand_list, 'search': strval}
         return render(request, self.template_name, ctx)
     
+class BrandCreateView(LoginRequiredMixin, View):
+    template_name = 'wellcopy/brand/form.html'
+    success_url = reverse_lazy('wellcopy:brandall')
+
+    def get(self, request, pk=None):
+        form = CreateBrandForm()
+        ctx = {'form': form}
+        return render(request, self.template_name, ctx)
+
+    def post(self, request, pk=None):
+        form = CreateBrandForm(request.POST, request.FILES or None)
+
+        if not form.is_valid():
+            ctx = {'form': form}
+            return render(request, self.template_name, ctx)
+
+        # Add owner to the model before saving
+        pic = form.save(commit=False)
+        pic.owner = self.request.user
+        pic.save()
+        return redirect(self.success_url)
+    
+class BrandUpdateView(LoginRequiredMixin, View):
+    template_name = 'wellcopy/brand/form.html'
+    success_url = reverse_lazy('wellcopy:brandall')
+
+    def get(self, request, pk):
+        pic = get_object_or_404(Brand, id=pk, owner=self.request.user)
+        form = CreateBrandForm(instance=pic)
+        ctx = {'form': form}
+        return render(request, self.template_name, ctx)
+
+    def post(self, request, pk=None):
+        pic = get_object_or_404(Brand, id=pk, owner=self.request.user)
+        form = CreateBrandForm(request.POST, request.FILES or None, instance=pic)
+
+        if not form.is_valid():
+            ctx = {'form': form}
+            return render(request, self.template_name, ctx)
+
+        pic = form.save(commit=False)
+        pic.save()
+
+        return redirect(self.success_url)
+    
 class GuitarListView(View):
     template_name = "wellcopy/guitar/list.html"
 
@@ -67,6 +115,51 @@ class GuitarListView(View):
 
         ctx = {'guitar_list' : guitar_list, 'search': strval}
         return render(request, self.template_name, ctx)
+
+class GuitarCreateView(LoginRequiredMixin, View):
+    template_name = 'wellcopy/guitar/form.html'
+    success_url = reverse_lazy('wellcopy:guitarall')
+
+    def get(self, request, pk=None):
+        form = CreateGuitarForm()
+        ctx = {'form': form}
+        return render(request, self.template_name, ctx)
+
+    def post(self, request, pk=None):
+        form = CreateGuitarForm(request.POST, request.FILES or None)
+
+        if not form.is_valid():
+            ctx = {'form': form}
+            return render(request, self.template_name, ctx)
+
+        # Add owner to the model before saving
+        pic = form.save(commit=False)
+        pic.owner = self.request.user
+        pic.save()
+        return redirect(self.success_url)
+    
+class GuitarUpdateView(LoginRequiredMixin, View):
+    template_name = 'wellcopy/guitar/form.html'
+    success_url = reverse_lazy('wellcopy:guitarall')
+
+    def get(self, request, pk):
+        pic = get_object_or_404(Guitar, id=pk, owner=self.request.user)
+        form = CreateGuitarForm(instance=pic)
+        ctx = {'form': form}
+        return render(request, self.template_name, ctx)
+
+    def post(self, request, pk=None):
+        pic = get_object_or_404(Guitar, id=pk, owner=self.request.user)
+        form = CreateGuitarForm(request.POST, request.FILES or None, instance=pic)
+
+        if not form.is_valid():
+            ctx = {'form': form}
+            return render(request, self.template_name, ctx)
+
+        pic = form.save(commit=False)
+        pic.save()
+
+        return redirect(self.success_url)
     
 class ReviewListView(View):
     template_name = "wellcopy/review/list.html"

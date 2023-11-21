@@ -46,21 +46,27 @@ urlpatterns = [
             template_name = app_name+"/brand/detail.html"), 
         name='brand_detail'),
 
+    # path('brand/create', 
+    #     OwnerCreateView.as_view(
+    #         success_url=reverse_lazy(app_name+':brandall'),
+    #         model = models.Brand,
+    #         template_name = app_name+"/brand/form.html",
+    #         fields = ['name', 'description', 'url', 'picture']
+    #      ), name='brand_create'),
+
+    # path('brand/<int:pk>/update', 
+    #     OwnerUpdateView.as_view(
+    #         success_url=reverse_lazy(app_name+':brandall'),
+    #         model = models.Brand,
+    #         fields = ['name', 'description', 'url', 'picture'],
+    #         template_name = app_name+"/brand/form.html"
+    #     ), name='brand_update'),
+    
     path('brand/create', 
-        OwnerCreateView.as_view(
-            success_url=reverse_lazy(app_name+':brandall'),
-            model = models.Brand,
-            template_name = app_name+"/brand/form.html",
-            fields = ['name', 'description', 'url', 'picture']
-         ), name='brand_create'),
+         views.BrandCreateView.as_view(success_url=reverse_lazy(app_name+':brandall')), name='brand_create'),
 
     path('brand/<int:pk>/update', 
-        OwnerUpdateView.as_view(
-            success_url=reverse_lazy(app_name+':brandall'),
-            model = models.Brand,
-            fields = ['name', 'description', 'url', 'picture'],
-            template_name = app_name+"/brand/form.html"
-        ), name='brand_update'),
+         views.BrandUpdateView.as_view(success_url=reverse_lazy(app_name+':brandall')), name='brand_update'),
 
     path('brand/<int:pk>/delete', 
         OwnerDeleteView.as_view(
@@ -77,21 +83,27 @@ urlpatterns = [
             template_name = app_name+"/guitar/detail.html"), 
         name='guitar_detail'),
 
+    # path('guitar/create', 
+    #     OwnerCreateView.as_view(
+    #         success_url=reverse_lazy(app_name+':guitarall'),
+    #         model = models.Guitar,
+    #         template_name = app_name+"/guitar/form.html",
+    #         fields = ['name', 'specs', 'picture', 'brand']
+    #      ), name='guitar_create'),
+
+    # path('guitar/<int:pk>/update', 
+    #     OwnerUpdateView.as_view(
+    #         success_url=reverse_lazy(app_name+':guitarall'),
+    #         model = models.Guitar,
+    #         fields = ['name', 'specs', 'picture', 'brand'],
+    #         template_name = app_name+"/guitar/form.html"
+    #     ), name='guitar_update'),
+
     path('guitar/create', 
-        OwnerCreateView.as_view(
-            success_url=reverse_lazy(app_name+':guitarall'),
-            model = models.Guitar,
-            template_name = app_name+"/guitar/form.html",
-            fields = ['name', 'specs', 'picture', 'brand']
-         ), name='guitar_create'),
+         views.GuitarCreateView.as_view(success_url=reverse_lazy(app_name+':guitarall')), name='guitar_create'),
 
     path('guitar/<int:pk>/update', 
-        OwnerUpdateView.as_view(
-            success_url=reverse_lazy(app_name+':guitarall'),
-            model = models.Guitar,
-            fields = ['name', 'specs', 'picture', 'brand'],
-            template_name = app_name+"/guitar/form.html"
-        ), name='guitar_update'),
+         views.GuitarUpdateView.as_view(success_url=reverse_lazy(app_name+':guitarall')), name='guitar_update'),
 
     path('guitar/<int:pk>/delete', 
         OwnerDeleteView.as_view(
