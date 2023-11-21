@@ -44,7 +44,7 @@ class Brand(models.Model) :
 
     # Shows up in the admin list
     def __str__(self):
-        return self.title
+        return self.name
     
 class Guitar(models.Model) :
     name = models.CharField(
@@ -67,7 +67,7 @@ class Guitar(models.Model) :
 
     # Shows up in the admin list
     def __str__(self):
-        return self.title
+        return self.name
     
 class Review(models.Model) :
     content = models.TextField()
@@ -80,10 +80,6 @@ class Review(models.Model) :
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-
-    # Shows up in the admin list
-    def __str__(self):
-        return self.title
     
 class Comment(models.Model) :
     content = models.TextField()
@@ -93,7 +89,3 @@ class Comment(models.Model) :
     review = models.ForeignKey('Review', on_delete=models.CASCADE, null=False)
 
     created_at = models.DateTimeField(auto_now_add=True)
-
-    # Shows up in the admin list
-    def __str__(self):
-        return self.title
