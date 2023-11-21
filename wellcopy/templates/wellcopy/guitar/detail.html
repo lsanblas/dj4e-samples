@@ -86,7 +86,7 @@ body{
 {{ guitar.specs }}
 </p>
 <p>
-{{ guitar.brand.name }}
+Brand: <a href="{% url 'wellcopy:brand_detail'  guitar.brand.id %}">{{ guitar.brand.name }}</a>
 </p>
 <p>
 </p>
