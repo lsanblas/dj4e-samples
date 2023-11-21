@@ -72,7 +72,7 @@ class Guitar(models.Model) :
 class Review(models.Model) :
     content = models.TextField()
     score = models.FloatField()
-    likes = models.IntegerField()
+    likes = models.IntegerField(null=True)
 
     owner = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE,
             related_name='review_owner')
