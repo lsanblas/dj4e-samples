@@ -63,7 +63,7 @@
 {% endblock %}
 <!-- end navbar block -->
 {% block content %}
-<h1>Our Blog</h1>
+<h1>Brands</h1>
 <div style="float:right">
 <!-- https://www.w3schools.com/howto/howto_css_search_button.asp -->
 <form>
@@ -71,47 +71,47 @@
   {% if search %} value="{{ search }}" {% endif %}
   >
   <button type="submit"><i class="fa fa-search"></i></button>
-<a href="{% url 'wellcopy:all' %}"><i class="fa fa-undo"></i></a>
+<a href="{% url 'wellcopy:brandall' %}"><i class="fa fa-undo"></i></a>
 </form>
 </div>
 <p>
-{% if post_list %}
+{% if brand_list %}
 <ul>
-  {% for post in post_list %}
+  {% for brand in brand_list %}
     <li>
-        <a href="{% url 'wellcopy:post_detail'  post.id %}">{{ post.title }}</a>
-        {% if post.owner_id == user.id %}
-        (<a href="{% url 'wellcopy:post_update' post.id %}">Edit</a> |
-        <a href="{% url 'wellcopy:post_delete' post.id %}">Delete</a>)
+        <a href="{% url 'wellcopy:brand_detail'  brand.id %}">{{ brand.name }}</a>
+        {% if brand.owner_id == user.id %}
+        (<a href="{% url 'wellcopy:brand_update' brand.id %}">Edit</a> |
+        <a href="{% url 'wellcopy:brand_delete' brand.id %}">Delete</a>)
         <br/>
         {% endif %}
         <div style="left:10px">
-            {% if post.text|length < 100 %}
-                {{ post.text }}
+            {% if brand.description|length < 100 %}
+                {{ brand.description }}
             {% else %}
-                {{ post.text|slice:"0:99" }}
-                <a href="{% url 'wellcopy:post_detail'  post.id %}">...</a>
+                {{ brand.description|slice:"0:99" }}
+                <a href="{% url 'wellcopy:brand_detail'  brand.id %}">...</a>
             {% endif %}
         </div>
         <small>
-        {% if post.owner.username %}
-            posted by {{ post.owner.username }}
+        {% if brand.owner.username %}
+            created by {{ brand.owner.username }}
         {% endif %}
-        {{ post.natural_updated }}
+        {{ brand.natural_updated }}
         </small>
     </li>
   {% endfor %}
 </ul>
 {% else %}
-  <p>There are no posts in the database.</p>
+  <p>There are no brands in the database.</p>
 {% endif %}
 </p>
 <p>
-<a href="{% url 'wellcopy:post_create' %}">Add a Post</a> |
+<a href="{% url 'wellcopy:brand_create' %}">Add a brand</a> |
 {% if user.is_authenticated %}
-<a href="{% url 'logout' %}?next={% url 'wellcopy:all' %}">Logout</a>
+<a href="{% url 'logout' %}?next={% url 'wellcopy:brandall' %}">Logout</a>
 {% else %}
-<a href="{% url 'login' %}?next={% url 'wellcopy:all' %}">Login</a>
+<a href="{% url 'login' %}?next={% url 'wellcopy:brandall' %}">Login</a>
 {% endif %}
 </p>
 {% endblock %}

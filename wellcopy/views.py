@@ -1,7 +1,8 @@
-from django.shortcuts import render
-from wellcopy.models import Postcopy
+from django.shortcuts import render, get_object_or_404
+from wellcopy.models import Postcopy, Brand, Guitar, Review, Comment
 from django.views import View
 from django.contrib.humanize.templatetags.humanize import naturaltime
+from django.http import HttpResponse
 
 from django.db.models import Q
 
@@ -28,6 +29,79 @@ class PostListView(View):
 
         ctx = {'post_list' : post_list, 'search': strval}
         return render(request, self.template_name, ctx)
+    
+class BrandListView(View):
+    template_name = "wellcopy/brand/list.html"
+
+    def get(self, request) :
+        strval =  request.GET.get("search", False)
+        if strval :
+            query = Q(name__icontains=strval) 
+            query.add(Q(description__icontains=strval), Q.OR)
+            brand_list = Brand.objects.filter(query).select_related().order_by('-updated_at')[:10]
+        else :
+            brand_list = Brand.objects.all().order_by('-updated_at')[:10]
+
+        # Augment the brand_list
+        for obj in brand_list:
+            obj.natural_updated = naturaltime(obj.updated_at)
+
+        ctx = {'brand_list' : brand_list, 'search': strval}
+        return render(request, self.template_name, ctx)
+    
+class GuitarListView(View):
+    template_name = "wellcopy/guitar/list.html"
+
+    def get(self, request) :
+        strval =  request.GET.get("search", False)
+        if strval :
+            query = Q(name__icontains=strval) 
+            query.add(Q(specs__icontains=strval), Q.OR)
+            guitar_list = Guitar.objects.filter(query).select_related().order_by('-updated_at')[:10]
+        else :
+            guitar_list = Guitar.objects.all().order_by('-updated_at')[:10]
+
+        # Augment the guitar_list
+        for obj in guitar_list:
+            obj.natural_updated = naturaltime(obj.updated_at)
+
+        ctx = {'guitar_list' : guitar_list, 'search': strval}
+        return render(request, self.template_name, ctx)
+    
+class ReviewListView(View):
+    template_name = "wellcopy/review/list.html"
+
+    def get(self, request) :
+        strval =  request.GET.get("search", False)
+        if strval :
+            query = Q(content__icontains=strval) 
+            #query.add(Q(text__icontains=strval), Q.OR)
+            review_list = Review.objects.filter(query).select_related().order_by('-updated_at')[:10]
+        else :
+            review_list = Review.objects.all().order_by('-updated_at')[:10]
+
+        # Augment the review_list
+        for obj in review_list:
+            obj.natural_updated = naturaltime(obj.updated_at)
+
+        ctx = {'review_list' : review_list, 'search': strval}
+        return render(request, self.template_name, ctx)
+    
+def stream_brandfile(request, pk):
+    pic = get_object_or_404(Brand, id=pk)
+    response = HttpResponse()
+    response['Content-Type'] = pic.content_type
+    response['Content-Length'] = len(pic.picture)
+    response.write(pic.picture)
+    return response
+
+def stream_guitarfile(request, pk):
+    pic = get_object_or_404(Guitar, id=pk)
+    response = HttpResponse()
+    response['Content-Type'] = pic.content_type
+    response['Content-Length'] = len(pic.picture)
+    response.write(pic.picture)
+    return response
 
 # References
 
