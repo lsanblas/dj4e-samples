@@ -93,10 +93,10 @@ body{
         <br/>
         {% endif %}
         <div style="left:10px">
-            {% if brand.description|length < 100 %}
+            {% if brand.description|length < 300 %}
                 {{ brand.description }}
             {% else %}
-                {{ brand.description|slice:"0:99" }}
+                {{ brand.description|slice:"0:299" }}
                 <a href="{% url 'wellcopy:brand_detail'  brand.id %}">...</a>
             {% endif %}
         </div>

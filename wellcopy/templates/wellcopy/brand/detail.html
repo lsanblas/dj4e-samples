@@ -80,7 +80,7 @@ body{
 </span>
 <h1>{{ brand.name }}</h1>
 {% if brand.content_type %}
-<img style="float:right; max-width:50%;" src="{% url 'wellcopy:guitar_picture' brand.id %}">
+<img style="float:right; max-width:50%;" src="{% url 'wellcopy:brand_picture' brand.id %}">
 {% endif %}
 <p>
 {{ brand.description }}

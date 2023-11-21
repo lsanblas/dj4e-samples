@@ -93,10 +93,10 @@ body{
         <br/>
         {% endif %}
         <div style="left:10px">
-            {% if review.content|length < 100 %}
+            {% if review.content|length < 300 %}
                 {{ review.content }}
             {% else %}
-                {{ review.content|slice:"0:99" }}
+                {{ review.content|slice:"0:299" }}
                 <a href="{% url 'wellcopy:review_detail'  review.id %}">...</a>
             {% endif %}
         </div>
