@@ -163,9 +163,10 @@ body{
   }
 
   function updateLikesCont(review_id, likes) {
-    console.log(url, 'updateLikesCont');  
+    console.log('init updateLikesCont');  
     var elem = document.getElementById(review_id);
     elem.innerHTML = likes + " likes";
+    console.log('end updateLikesCont'); 
   }
   
   function favPost(url, review_id, likes) {
