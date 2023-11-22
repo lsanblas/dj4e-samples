@@ -194,7 +194,7 @@ class ReviewDetailView(OwnerDetailView):
 class CommentCreateView(LoginRequiredMixin, View):
     def post(self, request, pk) :
         f = get_object_or_404(Review, id=pk)
-        comment = Comment(text=request.POST['comment'], owner=request.user, review=f)
+        comment = Comment(content=request.POST['comment'], owner=request.user, review=f)
         comment.save()
         return redirect(reverse('wellcopy:review_detail', args=[pk]))
 
