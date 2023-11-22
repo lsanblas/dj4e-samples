@@ -114,11 +114,12 @@ urlpatterns = [
     path('guitar_picture/<int:pk>', views.stream_guitarfile, name='guitar_picture'),
 
     #Review
-    path('review/<int:pk>', 
-        OwnerDetailView.as_view(
-            model = models.Review,
-            template_name = app_name+"/review/detail.html"), 
-        name='review_detail'),
+    path('review/<int:pk>', views.ReviewDetailView.as_view(), name='review_detail'),
+    # path('review/<int:pk>', 
+    #     OwnerDetailView.as_view(
+    #         model = models.Review,
+    #         template_name = app_name+"/review/detail.html"), 
+    #     name='review_detail'),
 
     path('review/create', 
         OwnerCreateView.as_view(

@@ -8,7 +8,7 @@ from django.urls import reverse_lazy, reverse
 
 from django.db.models import Q
 from wellcopy.forms import CreateBrandForm, CreateGuitarForm, CommentForm
-from myarts.owner import OwnerDeleteView
+from myarts.owner import OwnerDeleteView, OwnerDetailView
 
 class PostListView(View):
     template_name = "wellcopy/list.html"
@@ -180,6 +180,16 @@ class ReviewListView(View):
 
         ctx = {'review_list' : review_list, 'search': strval}
         return render(request, self.template_name, ctx)
+    
+class ReviewDetailView(OwnerDetailView):
+    model = Review
+    template_name = "wellcopy/review/detail.html"
+    def get(self, request, pk) :
+        x = get_object_or_404(Review, id=pk)
+        comments = Comment.objects.filter(review=x).order_by('-updated_at')
+        comment_form = CommentForm()
+        context = { 'review' : x, 'comments': comments, 'comment_form': comment_form }
+        return render(request, self.template_name, context)
     
 class CommentCreateView(LoginRequiredMixin, View):
     def post(self, request, pk) :
