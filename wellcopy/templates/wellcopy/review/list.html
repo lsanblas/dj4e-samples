@@ -97,7 +97,6 @@ body{
         <a href="#" onclick=
             "favPost('{% url 'wellcopy:review_like' review.id %}', {{ review.id }}, {{ review.likes }} );return false;"
             id="like_thumbs_{{review.id}}">
-            <!-- {% if review.likes == 0 %} style="display: none;" {% endif %} -->
         <span class="fa-stack" style="vertical-align: middle;">
         <i class="fa fa-thumbs-up fa-stack-1x"></i>
         <i class="fa fa-thumbs-up-o fa-stack-1x"></i>
@@ -164,8 +163,9 @@ body{
   }
 
   function updateLikesCont(review_id, likes) {
-      var elem = document.getElementById(review_id);
-      elem.innerHTML = likes + " likes";
+    console.log(url, 'updateLikesCont');  
+    var elem = document.getElementById(review_id);
+    elem.innerHTML = likes + " likes";
   }
   
   function favPost(url, review_id, likes) {
