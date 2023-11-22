@@ -4,10 +4,11 @@ from django.views import View
 from django.contrib.humanize.templatetags.humanize import naturaltime
 from django.http import HttpResponse
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.urls import reverse_lazy
+from django.urls import reverse_lazy, reverse
 
 from django.db.models import Q
-from wellcopy.forms import CreateBrandForm, CreateGuitarForm
+from wellcopy.forms import CreateBrandForm, CreateGuitarForm, CommentForm
+from myarts.owner import OwnerDeleteView
 
 class PostListView(View):
     template_name = "wellcopy/list.html"
@@ -179,6 +180,22 @@ class ReviewListView(View):
 
         ctx = {'review_list' : review_list, 'search': strval}
         return render(request, self.template_name, ctx)
+    
+class CommentCreateView(LoginRequiredMixin, View):
+    def post(self, request, pk) :
+        f = get_object_or_404(Review, id=pk)
+        comment = Comment(text=request.POST['comment'], owner=request.user, review=f)
+        comment.save()
+        return redirect(reverse('wellcopy:review_detail', args=[pk]))
+
+class CommentDeleteView(OwnerDeleteView):
+    model = Comment
+    template_name = "wellcopy/review/comment_delete.html"
+
+    # https://stackoverflow.com/questions/26290415/deleteview-with-a-dynamic-success-url-dependent-on-id
+    def get_success_url(self):
+        review = self.object.review
+        return reverse('wellcopy:review_detail', args=[review.id])
     
 def stream_brandfile(request, pk):
     pic = get_object_or_404(Brand, id=pk)

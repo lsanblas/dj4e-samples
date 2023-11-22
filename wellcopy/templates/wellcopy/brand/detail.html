@@ -86,16 +86,11 @@ body{
 {{ brand.description }}
 </p>
 <p>
-{{ brand.url }}
+Site: <a href="{{ brand.url }}">{{ brand.url }}</a>
 </p>
 <p>
 </p>
 <p>
 <a href="{% url 'wellcopy:brandall' %}">All brands</a>
 </p>
-{% endblock %}
-{% block footer %} 
-<div class="panel panel-default">
-  <div class="panel-footer">Panel Footer</div>
-</div>
 {% endblock %}

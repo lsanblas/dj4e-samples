@@ -85,6 +85,10 @@ class CreateGuitarForm(forms.ModelForm):
 
         return instance
 
+# strip means to remove whitespace from the beginning and the end before storing the column
+class CommentForm(forms.Form):
+    comment = forms.CharField(required=True, max_length=500, min_length=3, strip=True)
+
 # https://docs.djangoproject.com/en/4.2/topics/http/file-uploads/
 # https://stackoverflow.com/questions/2472422/django-file-upload-size-limit
 # https://stackoverflow.com/questions/32007311/how-to-change-data-in-django-modelform

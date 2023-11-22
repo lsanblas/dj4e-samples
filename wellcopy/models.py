@@ -82,10 +82,18 @@ class Review(models.Model) :
     updated_at = models.DateTimeField(auto_now=True)
     
 class Comment(models.Model) :
-    content = models.TextField()
+    content = models.TextField(
+        validators=[MinLengthValidator(3, "Comment must be greater than 3 characters")]
+    )
 
     owner = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE,
             related_name='comment_owner')
     review = models.ForeignKey('Review', on_delete=models.CASCADE, null=False)
 
     created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    # Shows up in the admin list
+    def __str__(self):
+        if len(self.content) < 15 : return self.content
+        return self.content[:11] + ' ...'

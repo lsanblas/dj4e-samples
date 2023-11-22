@@ -142,6 +142,11 @@ urlpatterns = [
             model = models.Review,
             template_name = app_name+"/review/delete.html"
         ), name='review_delete'),
+    
+    path('review/<int:pk>/comment', 
+        views.CommentCreateView.as_view(), name='review_comment_create'),
+    path('comment/<int:pk>/delete', 
+        views.CommentDeleteView.as_view(success_url=reverse_lazy(app_name+':reviewall')), name='review_comment_delete'),
 
 ]
 
