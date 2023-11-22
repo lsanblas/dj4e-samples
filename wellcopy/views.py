@@ -223,6 +223,24 @@ def stream_guitarfile(request, pk):
     response.write(pic.picture)
     return response
 
+# csrf exemption in class based views
+# https://stackoverflow.com/questions/16458166/how-to-disable-djangos-csrf-validation
+from django.views.decorators.csrf import csrf_exempt
+from django.utils.decorators import method_decorator
+from django.db.utils import IntegrityError
+
+@method_decorator(csrf_exempt, name='dispatch')
+class AddLikeView(LoginRequiredMixin, View):
+    def post(self, request, pk) :
+        print("Add PK",pk)
+        t = get_object_or_404(Review, id=pk)
+        t.likes = t.likes + 1
+        try:
+            t.save()  # In case of duplicate key
+        except IntegrityError as e:
+            pass
+        return HttpResponse()
+
 # References
 
 # https://docs.djangoproject.com/en/4.2/topics/db/queries/#one-to-many-relationships

@@ -92,6 +92,28 @@ body{
         <a href="{% url 'wellcopy:review_delete' review.id %}">Delete</a>)
         <br/>
         {% endif %}
+        {% if user.is_authenticated %}
+        <!-- Two hrefs with two stacked icons each - one showing and one hidden -->
+        <a href="#" onclick=
+            "favPost('{% url 'wellcopy:review_like' review.id %}', {{ review.id }}, {{ review.likes }} );return false;"
+            {% if review.likes == 0 %} style="display: none;" {% endif %}
+            id="like_thumbs_{{review.id}}">
+        <span class="fa-stack" style="vertical-align: middle;">
+        <i class="fa fa-thumbs-up fa-stack-1x" style="color: orange;"></i>
+        <i class="fa fa-thumbs-up fa-stack-1x"></i>
+        </span>
+        </a>
+        <!-- the second href -->
+        <a href="#" onclick=
+             "favPost('{% url 'wellcopy:review_like' review.id %}', {{ review.id }}, {{ review.likes }} );return false;"
+            {% if review.likes > 0 %} style="display: none;" {% endif %}
+            id="unlike_thumbs_{{review.id}}">
+        <span class="fa-stack" style="vertical-align: middle;">
+        <i class="fa fa-thumbs-up fa-stack-1x" style="display: none; color: orange;"></i>
+        <i class="fa fa-thumbs-up fa-stack-1x"></i>
+        </span>
+        </a>
+        {% endif %}
         <div style="left:10px">
             {% if review.content|length < 300 %}
                 {{ review.content }}
@@ -121,4 +143,38 @@ body{
 <a href="{% url 'login' %}?next={% url 'wellcopy:all' %}">Login</a>
 {% endif %}
 </p>
+<script>
+  function toggleInlineDisplay(star_id) {
+      var elem = document.getElementById(star_id);
+      if(window.getComputedStyle(elem).display == "inline") {
+          elem.style.display = 'none';
+          elem.dataset.previousDisplay = 'inline';
+      } else if(window.getComputedStyle(elem).display == "block") {
+          elem.style.display = 'none';
+          elem.dataset.previousDisplay = 'block';
+      } else {
+          console.log('prev', elem.dataset.previousDisplay);
+          if ( typeof elem.dataset.previousDisplay == 'string' ) {
+              elem.style.display = elem.dataset.previousDisplay
+          } else {
+              elem.style.display = 'inline';
+          }
+      }
+  }
+  
+  function favPost(url, review_id, likes) {
+      console.log('POSTing to', url);
+      fetch(url, { method: 'POST', body: '{}' } )
+      .then((response) => {
+          console.log(url, 'finished');
+          if(likes === 0){
+            toggleInlineDisplay("unlike_thumbs_"+review_id);
+          } else {
+            toggleInlineDisplay("like_thumbs_"+review_id);
+          }
+      }).catch((error) => {
+          alert('Url failed with '+error+' '+url);
+      });
+  }
+  </script>
 {% endblock %}
