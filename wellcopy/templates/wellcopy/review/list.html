@@ -96,15 +96,16 @@ body{
         <!-- Two hrefs with two stacked icons each - one showing and one hidden -->
         <a href="#" onclick=
             "favPost('{% url 'wellcopy:review_like' review.id %}', {{ review.id }}, {{ review.likes }} );return false;"
-            {% if review.likes == 0 %} style="display: none;" {% endif %}
             id="like_thumbs_{{review.id}}">
+            <!-- {% if review.likes == 0 %} style="display: none;" {% endif %} -->
         <span class="fa-stack" style="vertical-align: middle;">
         <i class="fa fa-thumbs-up fa-stack-1x"></i>
         <i class="fa fa-thumbs-up-o fa-stack-1x"></i>
         </span>
+        {{ review.likes }} likes
         </a>
         <!-- the second href -->
-        <a href="#" onclick=
+        <!-- <a href="#" onclick=
              "favPost('{% url 'wellcopy:review_like' review.id %}', {{ review.id }}, {{ review.likes }} );return false;"
             {% if review.likes > 0 %} style="display: none;" {% endif %}
             id="unlike_thumbs_{{review.id}}">
@@ -112,7 +113,7 @@ body{
         <i class="fa fa-thumbs-up fa-stack-1x" style="display: none;"></i>
         <i class="fa fa-thumbs-up-o fa-stack-1x"></i>
         </span>
-        </a>
+        </a> -->
         {% endif %}
         <div style="left:10px">
             {% if review.content|length < 300 %}
@@ -167,11 +168,7 @@ body{
       fetch(url, { method: 'POST', body: '{}' } )
       .then((response) => {
           console.log(url, 'finished');
-          if(likes === 0){
-            toggleInlineDisplay("unlike_thumbs_"+review_id);
-          } else {
-            toggleInlineDisplay("like_thumbs_"+review_id);
-          }
+          //toggleInlineDisplay("like_thumbs_"+review_id); 
       }).catch((error) => {
           alert('Url failed with '+error+' '+url);
       });
