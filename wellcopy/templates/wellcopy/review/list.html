@@ -96,10 +96,10 @@ body{
         <!-- Two hrefs with two stacked icons each - one showing and one hidden -->
         <a href="#" onclick=
             "favPost('{% url 'wellcopy:review_like' review.id %}', {{ review.id }}, {{ review.likes }} );return false;"
-            {% if review.likes == 0 %} style="display: none;" {% endif %}
+            {% if review.likes is None or review.likes == 0 %} style="display: none;" {% endif %}
             id="like_thumbs_{{review.id}}">
         <span class="fa-stack" style="vertical-align: middle;">
-        <i class="fa fa-thumbs-up fa-stack-1x" style="color: orange;"></i>
+        <i class="fa fa-thumbs-up fa-stack-1x"></i>
         <i class="fa fa-thumbs-up fa-stack-1x"></i>
         </span>
         </a>
@@ -109,7 +109,7 @@ body{
             {% if review.likes > 0 %} style="display: none;" {% endif %}
             id="unlike_thumbs_{{review.id}}">
         <span class="fa-stack" style="vertical-align: middle;">
-        <i class="fa fa-thumbs-up fa-stack-1x" style="display: none; color: orange;"></i>
+        <i class="fa fa-thumbs-up fa-stack-1x" style="display: none;"></i>
         <i class="fa fa-thumbs-up fa-stack-1x"></i>
         </span>
         </a>
