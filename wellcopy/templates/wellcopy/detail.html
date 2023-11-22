@@ -67,15 +67,15 @@ body{
 <!-- end navbar block -->
 {% block content %}
 <span style="float: right;">
-({{ post.updated_at|naturaltime }})
-{% if post.owner == user %}
-<a href="{% url 'wellcopy:post_update' post.id %}"><i class="fa fa-pencil"></i></a>
-<a href="{% url 'wellcopy:post_delete' post.id %}"><i class="fa fa-trash"></i></a>
+({{ postcopy.updated_at|naturaltime }})
+{% if postcopy.owner == user %}
+<a href="{% url 'wellcopy:post_update' postcopy.id %}"><i class="fa fa-pencil"></i></a>
+<a href="{% url 'wellcopy:post_delete' postcopy.id %}"><i class="fa fa-trash"></i></a>
 {% endif %}
 </span>
-<h1>{{ post.title }}</h1>
+<h1>{{ postcopy.title }}</h1>
 <p>
-{{ post.text }}
+{{ postcopy.text }}
 </p>
 <p>
 </p>
