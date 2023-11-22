@@ -90,7 +90,7 @@ body{
         {% if review.owner_id == user.id %}
         (<a href="{% url 'wellcopy:review_update' review.id %}">Edit</a> |
         <a href="{% url 'wellcopy:review_delete' review.id %}">Delete</a>)
-        <br/>
+        <!--<br/>-->
         {% endif %}
         {% if user.is_authenticated %}
         <!-- Two hrefs with two stacked icons each - one showing and one hidden -->
@@ -102,8 +102,8 @@ body{
         <i class="fa fa-thumbs-up fa-stack-1x"></i>
         <i class="fa fa-thumbs-up-o fa-stack-1x"></i>
         </span>
-        {{ review.likes }} likes
         </a>
+        <span id="like_count_{{review.id}}">{{ review.likes }} likes</span>
         <!-- the second href -->
         <!-- <a href="#" onclick=
              "favPost('{% url 'wellcopy:review_like' review.id %}', {{ review.id }}, {{ review.likes }} );return false;"
@@ -162,12 +162,18 @@ body{
           }
       }
   }
+
+  function updateLikesCont(review_id, likes) {
+      var elem = document.getElementById(review_id);
+      elem.innerHTML = likes + " likes";
+  }
   
   function favPost(url, review_id, likes) {
       console.log('POSTing to', url);
       fetch(url, { method: 'POST', body: '{}' } )
       .then((response) => {
           console.log(url, 'finished');
+          updateLikesCont("like_count_"+review_id, likes); 
           //toggleInlineDisplay("like_thumbs_"+review_id); 
       }).catch((error) => {
           alert('Url failed with '+error+' '+url);
