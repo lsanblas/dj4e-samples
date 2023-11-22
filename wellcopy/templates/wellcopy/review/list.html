@@ -102,7 +102,7 @@ body{
         <i class="fa fa-thumbs-up-o fa-stack-1x"></i>
         </span>
         </a>
-        <span id="like_count_{{review.id}}">{{ review.likes }} likes</span>
+        <span id="like_count_{{review.id}}" style="color: #0d6efd; text-decoration: underline;">{{ review.likes }} likes</span>
         <!-- the second href -->
         <!-- <a href="#" onclick=
              "favPost('{% url 'wellcopy:review_like' review.id %}', {{ review.id }}, {{ review.likes }} );return false;"
@@ -144,29 +144,9 @@ body{
 {% endif %}
 </p>
 <script>
-  function toggleInlineDisplay(star_id) {
-      var elem = document.getElementById(star_id);
-      if(window.getComputedStyle(elem).display == "inline") {
-          elem.style.display = 'none';
-          elem.dataset.previousDisplay = 'inline';
-      } else if(window.getComputedStyle(elem).display == "block") {
-          elem.style.display = 'none';
-          elem.dataset.previousDisplay = 'block';
-      } else {
-          console.log('prev', elem.dataset.previousDisplay);
-          if ( typeof elem.dataset.previousDisplay == 'string' ) {
-              elem.style.display = elem.dataset.previousDisplay
-          } else {
-              elem.style.display = 'inline';
-          }
-      }
-  }
-
   function updateLikesCont(review_id, likes) {
-    console.log('init updateLikesCont');  
     var elem = document.getElementById(review_id);
     elem.innerHTML = likes + " likes";
-    console.log('end updateLikesCont'); 
   }
   
   function favPost(url, review_id, likes) {
@@ -174,8 +154,8 @@ body{
       fetch(url, { method: 'POST', body: '{}' } )
       .then((response) => {
           console.log(url, 'finished');
+          likes++;
           updateLikesCont("like_count_"+review_id, likes); 
-          //toggleInlineDisplay("like_thumbs_"+review_id); 
       }).catch((error) => {
           alert('Url failed with '+error+' '+url);
       });
