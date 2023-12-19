@@ -106,6 +106,19 @@ body{
               <a href="{% url 'wellcopy:reviewall' %}" class="nav-link {% if request.get_full_path == abc3 %}active{% endif %}">Reviews</a>
           </li> 
         </ul>
+        <form class="d-flex">
+          <input
+            class="form-control me-2"
+            type="search"
+            placeholder="Search"
+            aria-label="Search"
+            {% if search %} value="{{ search }}" {% endif %}
+          />
+          <button class="btn btn-outline-success" type="submit">
+            Search
+          </button>
+          <a href="{% url 'wellcopy:all' %}" class="btn btn-primary ms-2">Clear</a>
+        </form>
         <ul class="navbar-nav">
           {% if user.is_authenticated %}
           <li class="nav-item dropdown">
@@ -122,19 +135,6 @@ body{
           <li class="nav-item"><a class="nav-link" href="{% url 'login' %}?next={% url 'wellcopy:all' %}">Login</a></li>
           {% endif %}
         </ul>
-        <form class="d-flex">
-          <input
-            class="form-control me-2"
-            type="search"
-            placeholder="Search"
-            aria-label="Search"
-            {% if search %} value="{{ search }}" {% endif %}
-          />
-          <button class="btn btn-outline-success" type="submit">
-            Search
-          </button>
-          <a href="{% url 'wellcopy:all' %}" class="btn btn-primary ms-2">Clear</a>
-        </form>
       </div>
     </div>
   </nav>
@@ -192,7 +192,7 @@ body{
 
               <div class="">
                 <a href="https://www.guitarworld.com/news/guitar-world-deals-of-the-week-last-chance-to-save-big-money-on-fender-line-6-positive-grid-and-more"
-                  ><button type="button" class="btn btn-primary">
+                target="_blank"><button type="button" class="btn btn-primary">
                     Read more
                   </button></a
                 >
@@ -212,8 +212,8 @@ body{
               </p>
 
               <div class="">
-                <a href="https://www.guitarworld.com/news/harley-benton-st-junior-sbk"
-                  ><button type="button" class="btn btn-primary">
+                <a href="https://www.guitarworld.com/news/harley-benton-st-junior-sbk" 
+                target="_blank"><button type="button" class="btn btn-primary">
                     Read more
                   </button></a
                 >
@@ -234,7 +234,7 @@ body{
 
               <div class="">
                 <a href="https://www.guitarworld.com/news/reverb-best-selling-pedals-2023"
-                  ><button type="button" class="btn btn-primary">
+                target="_blank"><button type="button" class="btn btn-primary">
                     Read more
                   </button></a
                 >
