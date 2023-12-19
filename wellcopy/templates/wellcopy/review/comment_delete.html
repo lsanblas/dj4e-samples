@@ -130,16 +130,22 @@ body{
 {% endblock %}
 <!-- end navbar block -->
 {% block content %}
-<h1>Delete Comment</h1>
+<main class="my-5">
+  <div class="container">
+    <div class="row">
+      <h1>Delete Comment</h1>
 
-<p>Are you sure you want to delete</p>
-<p>{{ comment.content }}?</p>
+      <p>Are you sure you want to delete</p>
+      <p>{{ comment.content }}?</p>
 
-<form action="" method="POST">
-  {% csrf_token %}
-  <input type="submit"  class="btn btn-primary" value="Yes, delete.">
-  <a href="{% url 'wellcopy:review_detail' comment.review.id %}" class="btn btn-secondary">Cancel</a>
-</form>
+      <form action="" method="POST">
+        {% csrf_token %}
+        <input type="submit"  class="btn btn-primary" value="Yes, delete.">
+        <a href="{% url 'wellcopy:review_detail' comment.review.id %}" class="btn btn-secondary">Cancel</a>
+      </form>
+    </div>
+  </div>
+</main>
 {% endblock %}
 
 {% block footer %} 

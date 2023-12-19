@@ -130,14 +130,20 @@ body{
 {% endblock %}
 <!-- end navbar block -->
 {% block content %}
-<p>
-  <form action="" method="post" id="upload_form" enctype="multipart/form-data">
-    {% csrf_token %}
-    {{ form|crispy }}
-    <input type="submit" value="Submit">
-    <input type="submit" value="Cancel" onclick="window.location.href='{% url 'wellcopy:brandall' %}';return false;">
-  </form>
-</p>
+<main class="my-5">
+  <div class="container">
+    <div class="row">
+      <p>
+        <form action="" method="post" id="upload_form" enctype="multipart/form-data">
+          {% csrf_token %}
+          {{ form|crispy }}
+          <input type="submit" value="Submit">
+          <input type="submit" value="Cancel" onclick="window.location.href='{% url 'wellcopy:brandall' %}';return false;">
+        </form>
+      </p>
+    </div>
+  </div>
+</main>
 <!-- https://stackoverflow.com/questions/2472422/django-file-upload-size-limit -->
 <script>
   document.getElementById("upload_form").addEventListener("submit", function() {

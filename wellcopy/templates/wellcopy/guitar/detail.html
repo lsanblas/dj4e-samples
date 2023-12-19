@@ -130,28 +130,34 @@ body{
 {% endblock %}
 <!-- end navbar block -->
 {% block content %}
-<span style="float: right;">
-({{ guitar.updated_at|naturaltime }})
-{% if guitar.owner == user %}
-<a href="{% url 'wellcopy:guitar_update' guitar.id %}"><i class="fa fa-pencil"></i></a>
-<a href="{% url 'wellcopy:guitar_delete' guitar.id %}"><i class="fa fa-trash"></i></a>
-{% endif %}
-</span>
-<h1>{{ guitar.name }}</h1>
-{% if guitar.content_type %}
-<img style="float:right; max-width:50%;" src="{% url 'wellcopy:guitar_picture' guitar.id %}">
-{% endif %}
-<p>
-{{ guitar.specs }}
-</p>
-<p>
-Brand: <a href="{% url 'wellcopy:brand_detail'  guitar.brand.id %}">{{ guitar.brand.name }}</a>
-</p>
-<p>
-</p>
-<p>
-<a href="{% url 'wellcopy:guitarall' %}">All guitars</a>
-</p>
+<main class="my-5">
+  <div class="container">
+    <div class="row">
+      <span style="float: right;">
+      ({{ guitar.updated_at|naturaltime }})
+      {% if guitar.owner == user %}
+      <a href="{% url 'wellcopy:guitar_update' guitar.id %}"><i class="fa fa-pencil"></i></a>
+      <a href="{% url 'wellcopy:guitar_delete' guitar.id %}"><i class="fa fa-trash"></i></a>
+      {% endif %}
+      </span>
+      <h1>{{ guitar.name }}</h1>
+      {% if guitar.content_type %}
+      <img style="float:right; max-width:50%;" src="{% url 'wellcopy:guitar_picture' guitar.id %}">
+      {% endif %}
+      <p>
+      {{ guitar.specs }}
+      </p>
+      <p>
+      Brand: <a href="{% url 'wellcopy:brand_detail'  guitar.brand.id %}">{{ guitar.brand.name }}</a>
+      </p>
+      <p>
+      </p>
+      <p>
+      <a href="{% url 'wellcopy:guitarall' %}">All guitars</a>
+      </p>
+    </div>
+  </div>
+</main>
 {% endblock %}
 
 {% block footer %} 

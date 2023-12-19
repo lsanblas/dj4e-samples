@@ -142,79 +142,85 @@ body{
 {% endblock %}
 <!-- end navbar block -->
 {% block content %}
-<h1>Reviews</h1>
-<!-- <div style="float:right"> -->
-<!-- https://www.w3schools.com/howto/howto_css_search_button.asp -->
-<!-- <form>
-  <input type="text" placeholder="Search.." name="search"
-  {% if search %} value="{{ search }}" {% endif %}
-  >
-  <button type="submit"><i class="fa fa-search"></i></button>
-<a href="{% url 'wellcopy:reviewall' %}"><i class="fa fa-undo"></i></a>
-</form>
-</div> -->
-<p>
-{% if review_list %}
-<ul>
-  {% for review in review_list %}
-    <li>
-        <a href="{% url 'wellcopy:review_detail'  review.id %}">{{ review.guitar.name }}</a>
-        {% if review.owner_id == user.id %}
-        (<a href="{% url 'wellcopy:review_update' review.id %}">Edit</a> |
-        <a href="{% url 'wellcopy:review_delete' review.id %}">Delete</a>)
-        <!--<br/>-->
-        {% endif %}
-        {% if user.is_authenticated %}
-        <!-- Two hrefs with two stacked icons each - one showing and one hidden -->
-        <a href="#" onclick=
-            "favPost('{% url 'wellcopy:review_like' review.id %}', {{ review.id }}, {{ review.likes }} );return false;"
-            id="like_thumbs_{{review.id}}">
-        <span class="fa-stack" style="vertical-align: middle;">
-        <i class="fa fa-thumbs-up fa-stack-1x"></i>
-        <i class="fa fa-thumbs-up-o fa-stack-1x"></i>
-        </span>
-        </a>
-        <span id="like_count_{{review.id}}" style="color: #0d6efd; text-decoration: underline;">{{ review.likes }} likes</span>
-        <!-- the second href -->
-        <!-- <a href="#" onclick=
-             "favPost('{% url 'wellcopy:review_like' review.id %}', {{ review.id }}, {{ review.likes }} );return false;"
-            {% if review.likes > 0 %} style="display: none;" {% endif %}
-            id="unlike_thumbs_{{review.id}}">
-        <span class="fa-stack" style="vertical-align: middle;">
-        <i class="fa fa-thumbs-up fa-stack-1x" style="display: none;"></i>
-        <i class="fa fa-thumbs-up-o fa-stack-1x"></i>
-        </span>
-        </a> -->
-        {% endif %}
-        <div style="left:10px">
-            {% if review.content|length < 300 %}
-                {{ review.content }}
-            {% else %}
-                {{ review.content|slice:"0:299" }}
-                <a href="{% url 'wellcopy:review_detail'  review.id %}">...</a>
-            {% endif %}
-        </div>
-        <small>
-        {% if review.owner.username %}
-            reviewed by {{ review.owner.username }}
-        {% endif %}
-        {{ review.natural_updated }}
-        </small>
-    </li>
-  {% endfor %}
-</ul>
-{% else %}
-  <p>There are no reviews in the database.</p>
-{% endif %}
-</p>
-<p>
-<a href="{% url 'wellcopy:review_create' %}">Add a Review</a> |
-{% if user.is_authenticated %}
-<a href="{% url 'logout' %}?next={% url 'wellcopy:all' %}">Logout</a>
-{% else %}
-<a href="{% url 'login' %}?next={% url 'wellcopy:all' %}">Login</a>
-{% endif %}
-</p>
+<main class="my-5">
+  <div class="container">
+    <div class="row">
+      <h1>Reviews</h1>
+      <!-- <div style="float:right"> -->
+      <!-- https://www.w3schools.com/howto/howto_css_search_button.asp -->
+      <!-- <form>
+        <input type="text" placeholder="Search.." name="search"
+        {% if search %} value="{{ search }}" {% endif %}
+        >
+        <button type="submit"><i class="fa fa-search"></i></button>
+      <a href="{% url 'wellcopy:reviewall' %}"><i class="fa fa-undo"></i></a>
+      </form>
+      </div> -->
+      <p>
+      {% if review_list %}
+      <ul>
+        {% for review in review_list %}
+          <li>
+              <a href="{% url 'wellcopy:review_detail'  review.id %}">{{ review.guitar.name }}</a>
+              {% if review.owner_id == user.id %}
+              (<a href="{% url 'wellcopy:review_update' review.id %}">Edit</a> |
+              <a href="{% url 'wellcopy:review_delete' review.id %}">Delete</a>)
+              <!--<br/>-->
+              {% endif %}
+              {% if user.is_authenticated %}
+              <!-- Two hrefs with two stacked icons each - one showing and one hidden -->
+              <a href="#" onclick=
+                  "favPost('{% url 'wellcopy:review_like' review.id %}', {{ review.id }}, {{ review.likes }} );return false;"
+                  id="like_thumbs_{{review.id}}">
+              <span class="fa-stack" style="vertical-align: middle;">
+              <i class="fa fa-thumbs-up fa-stack-1x"></i>
+              <i class="fa fa-thumbs-up-o fa-stack-1x"></i>
+              </span>
+              </a>
+              <span id="like_count_{{review.id}}" style="color: #0d6efd; text-decoration: underline;">{{ review.likes }} likes</span>
+              <!-- the second href -->
+              <!-- <a href="#" onclick=
+                  "favPost('{% url 'wellcopy:review_like' review.id %}', {{ review.id }}, {{ review.likes }} );return false;"
+                  {% if review.likes > 0 %} style="display: none;" {% endif %}
+                  id="unlike_thumbs_{{review.id}}">
+              <span class="fa-stack" style="vertical-align: middle;">
+              <i class="fa fa-thumbs-up fa-stack-1x" style="display: none;"></i>
+              <i class="fa fa-thumbs-up-o fa-stack-1x"></i>
+              </span>
+              </a> -->
+              {% endif %}
+              <div style="left:10px">
+                  {% if review.content|length < 300 %}
+                      {{ review.content }}
+                  {% else %}
+                      {{ review.content|slice:"0:299" }}
+                      <a href="{% url 'wellcopy:review_detail'  review.id %}">...</a>
+                  {% endif %}
+              </div>
+              <small>
+              {% if review.owner.username %}
+                  reviewed by {{ review.owner.username }}
+              {% endif %}
+              {{ review.natural_updated }}
+              </small>
+          </li>
+        {% endfor %}
+      </ul>
+      {% else %}
+        <p>There are no reviews in the database.</p>
+      {% endif %}
+      </p>
+      <p>
+      <a href="{% url 'wellcopy:review_create' %}">Add a Review</a> |
+      {% if user.is_authenticated %}
+      <a href="{% url 'logout' %}?next={% url 'wellcopy:all' %}">Logout</a>
+      {% else %}
+      <a href="{% url 'login' %}?next={% url 'wellcopy:all' %}">Login</a>
+      {% endif %}
+      </p>
+    </div>
+  </div>
+</main>
 <script>
   function updateLikesCont(review_id, likes) {
     var elem = document.getElementById(review_id);

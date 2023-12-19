@@ -130,14 +130,20 @@ body{
 {% endblock %}
 <!-- end navbar block -->
 {% block content %}
-<p>
-  <form action="" method="post">
-    {% csrf_token %}
-    {{ form|crispy }}
-    <input type="submit" value="Submit">
-    <input type="submit" value="Cancel" onclick="window.location.href='{% url 'wellcopy:reviewall' %}';return false;">
-  </form>
-</p>
+<main class="my-5">
+  <div class="container">
+    <div class="row">
+      <p>
+        <form action="" method="post">
+          {% csrf_token %}
+          {{ form|crispy }}
+          <input type="submit" value="Submit">
+          <input type="submit" value="Cancel" onclick="window.location.href='{% url 'wellcopy:reviewall' %}';return false;">
+        </form>
+      </p>
+    </div>
+  </div>
+</main>
 {% endblock %}
 
 {% block footer %} 

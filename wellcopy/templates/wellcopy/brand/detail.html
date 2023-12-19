@@ -130,28 +130,34 @@ body{
 {% endblock %}
 <!-- end navbar block -->
 {% block content %}
-<span style="float: right;">
-({{ brand.updated_at|naturaltime }})
-{% if brand.owner == user %}
-<a href="{% url 'wellcopy:brand_update' brand.id %}"><i class="fa fa-pencil"></i></a>
-<a href="{% url 'wellcopy:brand_delete' brand.id %}"><i class="fa fa-trash"></i></a>
-{% endif %}
-</span>
-<h1>{{ brand.name }}</h1>
-{% if brand.content_type %}
-<img style="float:right; max-width:50%;" src="{% url 'wellcopy:brand_picture' brand.id %}">
-{% endif %}
-<p>
-{{ brand.description }}
-</p>
-<p>
-Site: <a href="{{ brand.url }}">{{ brand.url }}</a>
-</p>
-<p>
-</p>
-<p>
-<a href="{% url 'wellcopy:brandall' %}">All brands</a>
-</p>
+<main class="my-5">
+  <div class="container">
+    <div class="row">
+      <span style="float: right;">
+      ({{ brand.updated_at|naturaltime }})
+      {% if brand.owner == user %}
+      <a href="{% url 'wellcopy:brand_update' brand.id %}"><i class="fa fa-pencil"></i></a>
+      <a href="{% url 'wellcopy:brand_delete' brand.id %}"><i class="fa fa-trash"></i></a>
+      {% endif %}
+      </span>
+      <h1>{{ brand.name }}</h1>
+      {% if brand.content_type %}
+      <img style="float:right; max-width:50%;" src="{% url 'wellcopy:brand_picture' brand.id %}">
+      {% endif %}
+      <p>
+      {{ brand.description }}
+      </p>
+      <p>
+      Site: <a href="{{ brand.url }}">{{ brand.url }}</a>
+      </p>
+      <p>
+      </p>
+      <p>
+      <a href="{% url 'wellcopy:brandall' %}">All brands</a>
+      </p>
+    </div>
+  </div>
+</main>
 {% endblock %}
 
 {% block footer %} 

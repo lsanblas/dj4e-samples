@@ -142,57 +142,63 @@ body{
 {% endblock %}
 <!-- end navbar block -->
 {% block content %}
-<h1>Brands Catalogue</h1>
-<!-- <div style="float:right"> -->
-<!-- https://www.w3schools.com/howto/howto_css_search_button.asp -->
-<!-- <form>
-  <input type="text" placeholder="Search.." name="search"
-  {% if search %} value="{{ search }}" {% endif %}
-  >
-  <button type="submit"><i class="fa fa-search"></i></button>
-<a href="{% url 'wellcopy:brandall' %}"><i class="fa fa-undo"></i></a>
-</form>
-</div> -->
-<p>
-{% if brand_list %}
-<ul>
-  {% for brand in brand_list %}
-    <li>
-        <a href="{% url 'wellcopy:brand_detail'  brand.id %}">{{ brand.name }}</a>
-        {% if brand.owner_id == user.id %}
-        (<a href="{% url 'wellcopy:brand_update' brand.id %}">Edit</a> |
-        <a href="{% url 'wellcopy:brand_delete' brand.id %}">Delete</a>)
-        <br/>
-        {% endif %}
-        <div style="left:10px">
-            {% if brand.description|length < 300 %}
-                {{ brand.description }}
-            {% else %}
-                {{ brand.description|slice:"0:299" }}
-                <a href="{% url 'wellcopy:brand_detail'  brand.id %}">...</a>
-            {% endif %}
-        </div>
-        <small>
-        {% if brand.owner.username %}
-            created by {{ brand.owner.username }}
-        {% endif %}
-        {{ brand.natural_updated }}
-        </small>
-    </li>
-  {% endfor %}
-</ul>
-{% else %}
-  <p>There are no brands in the database.</p>
-{% endif %}
-</p>
-<p>
-<a href="{% url 'wellcopy:brand_create' %}">Add a Brand</a> |
-{% if user.is_authenticated %}
-<a href="{% url 'logout' %}?next={% url 'wellcopy:all' %}">Logout</a>
-{% else %}
-<a href="{% url 'login' %}?next={% url 'wellcopy:all' %}">Login</a>
-{% endif %}
-</p>
+<main class="my-5">
+  <div class="container">
+    <div class="row">
+      <h1>Brands Catalogue</h1>
+      <!-- <div style="float:right"> -->
+      <!-- https://www.w3schools.com/howto/howto_css_search_button.asp -->
+      <!-- <form>
+        <input type="text" placeholder="Search.." name="search"
+        {% if search %} value="{{ search }}" {% endif %}
+        >
+        <button type="submit"><i class="fa fa-search"></i></button>
+      <a href="{% url 'wellcopy:brandall' %}"><i class="fa fa-undo"></i></a>
+      </form>
+      </div> -->
+      <p>
+      {% if brand_list %}
+      <ul>
+        {% for brand in brand_list %}
+          <li>
+              <a href="{% url 'wellcopy:brand_detail'  brand.id %}">{{ brand.name }}</a>
+              {% if brand.owner_id == user.id %}
+              (<a href="{% url 'wellcopy:brand_update' brand.id %}">Edit</a> |
+              <a href="{% url 'wellcopy:brand_delete' brand.id %}">Delete</a>)
+              <br/>
+              {% endif %}
+              <div style="left:10px">
+                  {% if brand.description|length < 300 %}
+                      {{ brand.description }}
+                  {% else %}
+                      {{ brand.description|slice:"0:299" }}
+                      <a href="{% url 'wellcopy:brand_detail'  brand.id %}">...</a>
+                  {% endif %}
+              </div>
+              <small>
+              {% if brand.owner.username %}
+                  created by {{ brand.owner.username }}
+              {% endif %}
+              {{ brand.natural_updated }}
+              </small>
+          </li>
+        {% endfor %}
+      </ul>
+      {% else %}
+        <p>There are no brands in the database.</p>
+      {% endif %}
+      </p>
+      <p>
+      <a href="{% url 'wellcopy:brand_create' %}">Add a Brand</a> |
+      {% if user.is_authenticated %}
+      <a href="{% url 'logout' %}?next={% url 'wellcopy:all' %}">Logout</a>
+      {% else %}
+      <a href="{% url 'login' %}?next={% url 'wellcopy:all' %}">Login</a>
+      {% endif %}
+      </p>
+    </div>
+  </div>
+</main>
 {% endblock %}
 
 {% block footer %} 
