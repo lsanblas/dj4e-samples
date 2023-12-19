@@ -106,6 +106,22 @@ body{
               <a href="{% url 'wellcopy:reviewall' %}" class="nav-link {% if request.get_full_path == abc3 %}active{% endif %}">Reviews</a>
           </li> 
         </ul>
+        <ul class="navbar-nav">
+          {% if user.is_authenticated %}
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="rightnavDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <!-- gravatar depends on app_tags being loaded -->
+                <!-- https://brobin.me/blog/2016/07/super-simple-django-gravatar/ -->
+                <img style="width: 25px;" src="{{ user|gravatar:60 }}"/><b class="caret"></b>
+            </a>
+            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="rightnavDropdown">
+                <li><a class="dropdown-item" href="{% url 'logout' %}?next={% url 'wellcopy:all' %}">Logout</a></li>
+            </ul>
+          </li>
+          {% else %}
+          <li class="nav-item"><a class="nav-link" href="{% url 'login' %}?next={% url 'wellcopy:all' %}">Login</a></li>
+          {% endif %}
+        </ul>
         <form class="d-flex">
           <input
             class="form-control me-2"
@@ -171,13 +187,11 @@ body{
             <div class="card-body">
               <h5 class="card-title">last chance to save big money on Fender, Line 6, Positive Grid, and more</h5>
               <p class="card-text">
-                This is a wider card with supporting text below as a natural
-                lead-in to additional content. This content is a little bit
-                longer.
+                We're pretty much at the tail end of the gifting season now, but that doesn't mean there aren't still a few bargains to be picked up. Whether you need a last-minute present, or you just want to add something else to your collection, we've rounded up our favorite deals of the past week in one handy place for you.
               </p>
 
               <div class="">
-                <a href="#"
+                <a href="https://www.guitarworld.com/news/guitar-world-deals-of-the-week-last-chance-to-save-big-money-on-fender-line-6-positive-grid-and-more"
                   ><button type="button" class="btn btn-primary">
                     Read more
                   </button></a
@@ -194,13 +208,11 @@ body{
             <div class="card-body">
               <h5 class="card-title">Harley Benton launches a super-short-scale HSS Strat-a-like for $89</h5>
               <p class="card-text">
-                This is a wider card with supporting text below as a natural
-                lead-in to additional content. This card has even longer
-                content than the first to show that equal height action.
+                Harley Benton has unveiled its new short-scale Strat which, going for just $89, offers a highly affordable route into guitar playing for young musicians-in-the-making.
               </p>
 
               <div class="">
-                <a href="#"
+                <a href="https://www.guitarworld.com/news/harley-benton-st-junior-sbk"
                   ><button type="button" class="btn btn-primary">
                     Read more
                   </button></a
@@ -217,13 +229,11 @@ body{
             <div class="card-body">
               <h5 class="card-title">Reverb reveals its best-selling guitar pedals of 2023</h5>
               <p class="card-text">
-                This is a wider card with supporting text below as a natural
-                lead-in to additional content. This card has even longer
-                content than the first to show that equal height action.
+                It is that time of the year again, in which we like to say we are ”taking stock and reflecting”, but are really just rushing around and doing a lot of shopping. As such, Reverb’s best-selling pedals of 2023 list truly captures the duality of the season.
               </p>
 
               <div class="">
-                <a href="#"
+                <a href="https://www.guitarworld.com/news/reverb-best-selling-pedals-2023"
                   ><button type="button" class="btn btn-primary">
                     Read more
                   </button></a
@@ -286,10 +296,10 @@ body{
   </div>
 </main>
 <!-- Old content-->
-<h1>Lastest news</h1>
-<div style="float:right">
+<!-- <h1>Lastest news</h1>
+<div style="float:right"> -->
   <!-- https://www.w3schools.com/howto/howto_css_search_button.asp -->
-  <form>
+  <!-- <form>
     <input type="text" placeholder="Search.." name="search"
     {% if search %} value="{{ search }}" {% endif %}
     >
@@ -336,7 +346,7 @@ body{
 {% else %}
 <a href="{% url 'login' %}?next={% url 'wellcopy:all' %}">Login</a>
 {% endif %}
-</p>
+</p> -->
 {% endblock %}
 {% block footer %} 
 <footer class="footer mt-auto py-3 bg-dark bottom-0 start-0 end-0">
