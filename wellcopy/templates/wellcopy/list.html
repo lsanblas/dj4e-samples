@@ -106,7 +106,7 @@ body{
               <a href="{% url 'wellcopy:reviewall' %}" class="nav-link {% if request.get_full_path == abc3 %}active{% endif %}">Reviews</a>
           </li> 
         </ul>
-        <form class="d-flex">
+        <!-- <form class="d-flex">
           <input
             class="form-control me-2"
             type="search"
@@ -118,7 +118,7 @@ body{
             Search
           </button>
           <a href="{% url 'wellcopy:all' %}" class="btn btn-primary ms-2">Clear</a>
-        </form>
+        </form> -->
         <ul class="navbar-nav">
           {% if user.is_authenticated %}
           <li class="nav-item dropdown">
