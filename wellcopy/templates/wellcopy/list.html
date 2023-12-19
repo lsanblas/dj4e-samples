@@ -117,7 +117,7 @@ body{
           <button class="btn btn-outline-success" type="submit">
             Search
           </button>
-          <a href="{% url 'wellcopy:all' %}" class="btn btn-primary">Clear</a>
+          <a href="{% url 'wellcopy:all' %}" class="btn btn-primary ms-2">Clear</a>
         </form>
       </div>
     </div>
@@ -126,16 +126,176 @@ body{
 {% endblock %}
 <!-- end navbar block -->
 {% block content %}
+<!--New content-->
+<main class="my-5">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-7">
+        <img
+          src="guitar-home.jpg"
+          alt=""
+          class="img-fluid"
+        />
+      </div>
+      <div class="col-md-5">
+        <h1 class="mt-5">Welcome to our Blog</h1>
+        <p class="mt-4">
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Officia
+          veniam suscipit accusantium quibusdam dicta nesciunt esse? Id
+          itaque incidunt sint distinctio voluptatem tempore tempora aliquam
+          sunt, vel, repellat velit. Vel!
+        </p>
+        <!-- <button type="button" class="btn btn-primary mt-3">
+          Call to action!
+        </button> -->
+      </div>
+    </div>
+    <div class="row my-5">
+      <div class="col">
+        <div class="bg-secondary text-white my-3 py-3 card text-center">
+          <div class="card-body">
+            <h2>Latest news</h2>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row my-5">
+      <div class="col">
+        <div class="card-group">
+          <div class="card">
+            <img
+              src="news1E.jpg"
+              class="card-img-top"
+              alt="..."
+            />
+            <div class="card-body">
+              <h5 class="card-title">last chance to save big money on Fender, Line 6, Positive Grid, and more</h5>
+              <p class="card-text">
+                This is a wider card with supporting text below as a natural
+                lead-in to additional content. This content is a little bit
+                longer.
+              </p>
+
+              <div class="">
+                <a href="#"
+                  ><button type="button" class="btn btn-primary">
+                    Read more
+                  </button></a
+                >
+              </div>
+            </div>
+          </div>
+          <div class="card">
+            <img
+              src="news2E.jpg"
+              class="card-img-top"
+              alt="..."
+            />
+            <div class="card-body">
+              <h5 class="card-title">Harley Benton launches a super-short-scale HSS Strat-a-like for $89</h5>
+              <p class="card-text">
+                This is a wider card with supporting text below as a natural
+                lead-in to additional content. This card has even longer
+                content than the first to show that equal height action.
+              </p>
+
+              <div class="">
+                <a href="#"
+                  ><button type="button" class="btn btn-primary">
+                    Read more
+                  </button></a
+                >
+              </div>
+            </div>
+          </div>
+          <div class="card">
+            <img
+              src="news3E.jpg"
+              class="card-img-top"
+              alt="..."
+            />
+            <div class="card-body">
+              <h5 class="card-title">Reverb reveals its best-selling guitar pedals of 2023</h5>
+              <p class="card-text">
+                This is a wider card with supporting text below as a natural
+                lead-in to additional content. This card has even longer
+                content than the first to show that equal height action.
+              </p>
+
+              <div class="">
+                <a href="#"
+                  ><button type="button" class="btn btn-primary">
+                    Read more
+                  </button></a
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="text-center">
+      <h2>Get in touch</h2>
+      <p class="lead">Questions? Do not hesitate to contact us.</p>
+    </div>
+    <div class="row justify-content-center my-5">
+      <div class="col-lg-6">
+        <form action="">
+          <label for="email" class="form-label">Email:</label>
+          <input
+            type="email"
+            id="email"
+            placeholder="my@email.com"
+            class="form-control"
+          />
+          <div class="form-floating my-5">
+            <input
+              type="name"
+              id="name"
+              placeholder="e.g. Dawid"
+              class="form-control"
+            />
+            <label for="name" class="form-label">Name:</label>
+          </div>
+          <label for="subject" class="form=label">Subject</label>
+          <select name="subject" id="subject" class="form-select">
+            <option value="brand">Brands</option>
+            <option value="guitar" selected>Guitars</option>
+            <option value="review">Reviews</option>
+            <option value="other">Other</option>
+          </select>
+
+          <div class="form-floating my-5">
+            <textarea
+              name="query"
+              id="query"
+              style="height: 150px"
+              class="form-control"
+              placeholder="Write a message"
+            ></textarea>
+
+            <label for="query">Write a message</label>
+          </div>
+
+          <div class="text-center">
+            <button type="submit" class="btn btn-primary">Send!</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</main>
+<!-- Old content-->
 <h1>Lastest news</h1>
 <div style="float:right">
-<!-- https://www.w3schools.com/howto/howto_css_search_button.asp -->
-<form>
-  <input type="text" placeholder="Search.." name="search"
-  {% if search %} value="{{ search }}" {% endif %}
-  >
-  <button type="submit"><i class="fa fa-search"></i></button>
-<a href="{% url 'wellcopy:all' %}"><i class="fa fa-undo"></i></a>
-</form>
+  <!-- https://www.w3schools.com/howto/howto_css_search_button.asp -->
+  <form>
+    <input type="text" placeholder="Search.." name="search"
+    {% if search %} value="{{ search }}" {% endif %}
+    >
+    <button type="submit"><i class="fa fa-search"></i></button>
+  <a href="{% url 'wellcopy:all' %}"><i class="fa fa-undo"></i></a>
+  </form>
 </div>
 <p>
 {% if post_list %}
