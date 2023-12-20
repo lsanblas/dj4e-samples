@@ -7,8 +7,12 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy, reverse
 
 from django.db.models import Q
-from wellcopy.forms import CreateBrandForm, CreateGuitarForm, CommentForm
+from wellcopy.forms import CreateBrandForm, CreateGuitarForm, CommentForm, ContactForm
 from myarts.owner import OwnerDeleteView, OwnerDetailView
+
+import smtplib
+from email.mime.text import MIMEText
+from email.mime.multipart import MIMEMultipart
 
 class PostListView(View):
     template_name = "wellcopy/list.html"
@@ -33,6 +37,18 @@ class PostListView(View):
 
         ctx = {'post_list' : post_list, 'search': strval}
         return render(request, self.template_name, ctx)
+    
+    def post(self, request) :
+        # create a form instance and populate it with data from the request:
+        form = ContactForm(request.POST)
+        # check whether it's valid:
+        if form.is_valid():
+            print("form OK")
+            return render(request, self.template_name)
+        else: 
+            print("form NOT OK")   
+            return render(request, self.template_name)
+
     
 class BrandListView(View):
     template_name = "wellcopy/brand/list.html"
@@ -222,6 +238,49 @@ def stream_guitarfile(request, pk):
     response['Content-Length'] = len(pic.picture)
     response.write(pic.picture)
     return response
+
+def send_email(subject, body, to_email):
+    """
+    Send an email with the given subject, body, and addressee.
+
+    Parameters:
+    - subject (str): The subject of the email.
+    - body (str): The body/content of the email.
+    - to_email (str): The email address of the recipient.
+
+    Returns:
+    - None
+    """
+    # Email account credentials (replace with your own values)
+    sender_email = 'leonardosanblaseveris@gmail.com'
+    sender_password = 'L3oXunt@'
+
+    # SMTP server configuration (replace with your email provider's SMTP details)
+    smtp_server = 'smtp.gmail.com'
+    smtp_port = 587
+
+    # Create a message container (MIMEMultipart object)
+    msg = MIMEMultipart()
+    msg['From'] = sender_email
+    msg['To'] = to_email
+    msg['Subject'] = subject
+
+    # Attach the body of the email as plain text
+    msg.attach(MIMEText(body, 'plain'))
+
+    # Establish a connection to the SMTP server
+    with smtplib.SMTP(smtp_server, smtp_port) as server:
+        # Start the TLS (Transport Layer Security) connection
+        server.starttls()
+
+        # Login to the email account
+        server.login(sender_email, sender_password)
+
+        # Send the email
+        server.sendmail(sender_email, to_email, msg.as_string())
+
+    # The email has been sent successfully
+    print(f"Email sent to {to_email} with subject: {subject}")
 
 # csrf exemption in class based views
 # https://stackoverflow.com/questions/16458166/how-to-disable-djangos-csrf-validation
