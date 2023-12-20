@@ -46,7 +46,7 @@ class PostListView(View):
         subject = request.POST.get("subject", False)
         message = request.POST.get("message", False)
 
-        send_email(subject, message, sender)
+        send_email(subject, message, sender, name)
         return render(request, self.template_name)
       
 
@@ -240,7 +240,7 @@ def stream_guitarfile(request, pk):
     response.write(pic.picture)
     return response
 
-def send_email(subject, body, to_email):
+def send_email(subject, body, to_email, name):
     """
     Send an email with the given subject, body, and addressee.
 
@@ -254,7 +254,6 @@ def send_email(subject, body, to_email):
     """
     # Email account credentials (replace with your own values)
     sender_email = 'leonardosanblaseveris@gmail.com'
-    #sender_password = 'L3oXunt@'
     sender_password = 'mzml tgmy kgyb zagv'
 
     # SMTP server configuration (replace with your email provider's SMTP details)
@@ -267,8 +266,15 @@ def send_email(subject, body, to_email):
     msg['To'] = to_email
     msg['Subject'] = subject
 
+    # Create a message container for the sender
+    msgSite = MIMEMultipart()
+    msgSite['From'] = to_email
+    msgSite['To'] = sender_email
+    msgSite['Subject'] = subject
+
     # Attach the body of the email as plain text
-    msg.attach(MIMEText(body, 'plain'))
+    msg.attach(MIMEText(f"Hello {name}! Thank you for your message. We will answer you as soon as posible", 'plain'))
+    msgSite.attach(MIMEText(body, 'plain'))
 
     # Establish a connection to the SMTP server
     with smtplib.SMTP(smtp_server, smtp_port) as server:
@@ -278,8 +284,11 @@ def send_email(subject, body, to_email):
         # Login to the email account
         server.login(sender_email, sender_password)
 
-        # Send the email
+        # Send the email to sender
         server.sendmail(sender_email, to_email, msg.as_string())
+
+        # Send the email to site
+        server.sendmail(sender_email, sender_email, msgSite.as_string())
 
     # The email has been sent successfully
     print(f"Email sent to {to_email} with subject: {subject}")
