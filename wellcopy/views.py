@@ -40,13 +40,15 @@ class PostListView(View):
     
     def post(self, request) :
         # create a form instance and populate it with data from the request:
-        form = ContactForm(request.POST)
-        # check whether it's valid:
-        if form.is_valid():
-            send_email(form.subject, form.message, form.sender)
-            return render(request, self.template_name)
-        else: 
-            return render(request, self.template_name)
+        #form = ContactForm(request.POST)
+        sender = request.POST.get("sender", False)
+        name = request.POST.get("name", False)
+        subject = request.POST.get("subject", False)
+        message = request.POST.get("message", False)
+
+        send_email(subject, message, sender)
+        return render(request, self.template_name)
+      
 
     
 class BrandListView(View):
