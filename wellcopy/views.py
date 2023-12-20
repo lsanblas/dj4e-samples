@@ -43,10 +43,9 @@ class PostListView(View):
         form = ContactForm(request.POST)
         # check whether it's valid:
         if form.is_valid():
-            print("form OK")
+            send_email(form.subject, form.message, form.sender)
             return render(request, self.template_name)
         else: 
-            print("form NOT OK")   
             return render(request, self.template_name)
 
     
