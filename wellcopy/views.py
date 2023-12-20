@@ -254,7 +254,8 @@ def send_email(subject, body, to_email):
     """
     # Email account credentials (replace with your own values)
     sender_email = 'leonardosanblaseveris@gmail.com'
-    sender_password = 'L3oXunt@'
+    #sender_password = 'L3oXunt@'
+    sender_password = 'mzml tgmy kgyb zagv'
 
     # SMTP server configuration (replace with your email provider's SMTP details)
     smtp_server = 'smtp.gmail.com'
