@@ -251,6 +251,7 @@ body{
     <div class="row justify-content-center my-5">
       <div class="col-lg-6">
         <form action="" method="post">
+          {% csrf_token %}
           <label for="sender" class="form-label">Email:</label>
           <input
             type="email"
